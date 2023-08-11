@@ -3,5 +3,8 @@ export default defineNuxtConfig({
   build: {
     transpile: ['trpc-nuxt']
   },
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+  nitro: {
+    preset: "cloudflare-pages",
+  }
 })
