@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { publicProcedure, router } from '../trpc'
+import { user } from '@/server/db/schema'
 
 export const appRouter = router({
   hello: publicProcedure
@@ -8,9 +9,10 @@ export const appRouter = router({
         text: z.string().nullish(),
       }),
     )
-    .query(({ input }) => {
+    .query(({ input, ctx }) => {
+      //const users = ctx.db.select().from(user).all()
       return {
-        greeting: `hello ${input?.text ?? 'world'}`,
+        greeting: 'lalal'
       }
     }),
 })

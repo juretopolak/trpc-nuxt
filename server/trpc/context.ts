@@ -1,15 +1,17 @@
 import { inferAsyncReturnType } from '@trpc/server'
-import { FetchCreateContextWithCloudflareEnvFnOptions } from 'cloudflare-pages-plugin-trpc'
-import { drizzle } from 'drizzle-orm/d1'
+import { drizzle } from 'drizzle-orm/d1';
+import type { H3Event } from 'h3'
 
-interface Env {
-  DB: D1Database
+export interface Env {
+  DB: D1Database;
 }
+// TS Error in createContext  ./server/api/trpc/[trpc].ts
+// export const createContext = async (event: H3Event, env: Env) => {
+export const createContext = async (event: H3Event) => {
+  const req = event.req
+  const res = event.res
+  //const db = drizzle(env.DB)
+  return { req, res};
+};
 
-export const createContext = async ({
-  env,
-}: FetchCreateContextWithCloudflareEnvFnOptions<Env>) => ({
-  db: drizzle(env.DB),
-})
-
-export type Context = inferAsyncReturnType<typeof createContext>
+export type Context = inferAsyncReturnType<typeof createContext>;
