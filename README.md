@@ -1,63 +1,53 @@
-# Nuxt 3 Minimal Starter
+# Nuxt3 / tRPC / Drizzle ORM / CloudFlare D1 
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Demo project.
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
+## Setup local dev
+Fork demo repo: https://github.com/juretopolak/trpc-nuxt
+```
+git clone https://github.com/[username]/trpc-nuxt
+cd trpc-nuxt
 yarn install
 ```
 
-## Development Server
+## Setup CloudFlare Page
+- Login in CloudFlare > Workers & Pages
+- Create aplication > Pages
+- Connect to Git > Select new `[trpc-nuxt]` repo
+- Begin setup and deploy with settings:
+```
+Build command: npx nuxi generate
+Build output directory: /dist
+Root directory: /
+Build comments on pull requests: Enabled
+```
+- Page > Settings > Environment variables > Add variables
+```
+YARN_ENABLE_IMMUTABLE_INSTALLS = false
+```
+## Setup CloudFlare D1 (Database)
+- Workers & Pages > D1
+- Create database (Dashboard)
+- Copy Database name and ID to `wrangler.toml`
 
-Start the development server on `http://localhost:3000`:
+## Bind Database to Page
+- Workers & Pages > [trpc-nuxt] > Settings
+- Functions > D1 database bindings
+- Edit bindings > Add variable
+```
+DB = trpc-nuxt
+```
+## Create local development server
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
+wrangler login
+wrangler d1 migrations apply DB --local
+wrangler pages dev --local --d1=DB -- yarn dev
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
+## Push to deploy
+Push and check new deployment in CloudFlare.
+```
+git push
 ```
 
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
