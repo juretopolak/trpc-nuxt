@@ -6,16 +6,24 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "migration:generate": "drizzle-kit generate:sqlite"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230807.0",
     "@nuxt/devtools": "latest",
     "@types/node": "^18.17.3",
-    "nuxt": "^3.6.5"
+    "drizzle-kit": "^0.19.12",
+    "nuxt": "^3.6.5",
+    "wrangler": "^3.5.0"
   },
   "dependencies": {
     "@trpc/client": "^10.37.1",
     "@trpc/server": "^10.37.1",
+    "better-sqlite3": "^8.5.0",
+    "cloudflare-pages-plugin-trpc": "^0.3.2",
+    "drizzle-orm": "^0.28.2",
+    "drizzle-orm-sqlite": "^0.16.1",
     "trpc-nuxt": "^0.10.7",
     "zod": "^3.21.4"
   }
